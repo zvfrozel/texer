@@ -4,3 +4,7 @@ abel.asy
 abel.tex
 abel.txt
 input.asy
+output.asy
+tests.py
+
+.DS_Store
