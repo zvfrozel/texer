@@ -1,6 +1,7 @@
-% Last updated May 4 2025
+% Last updated Nov 14 2025
 
 \ProvidesPackage{abel}
+\makeatletter % CHANGED: enable use of internal LaTeX macros with @ in this package
 
 % Where should these settings actually be kept?
 \usepackage[english]{babel}
@@ -16,6 +17,9 @@
 
 \usepackage[shortlabels]{enumitem}
 \usepackage{ellipsis} % don't use ugly unicode ellipsis
+
+\usepackage{mathtools}
+\allowdisplaybreaks % Prevent overflow
 
 % Text styles
 \newcommand{\qfootnote}[1]{\begin{flushright}\textit{#1}\end{flushright}}
@@ -147,7 +151,7 @@
 \newcommand{\kp}{\mathfrak p}
 \newcommand{\kq}{\mathfrak q}
 
-%% Evan Chen's asymptote setup
+%% Evan's asymptote setup
 \usepackage{asymptote}
 
 \begin{asydef}
@@ -195,7 +199,7 @@ path Drawing(path g, pen p = defaultpen, arrowbar ar = None) {
 }
 \end{asydef}
 
-%% Evan Chen packages
+%% Evan packages
 % For colors
 \PassOptionsToPackage{usenames,svgnames,dvipsnames,table}{xcolor}
 \usepackage{xcolor} %% VIP package
@@ -204,7 +208,7 @@ path Drawing(path g, pen p = defaultpen, arrowbar ar = None) {
 \usepackage{amsthm}
 \usepackage{thmtools}
 
-%% mdframed setup by Evan Chen
+%% mdframed setup by Evan
 \usepackage[framemethod=TikZ]{mdframed}
 \usetikzlibrary{shadows}
 % https://tex.stackexchange.com/a/292090/76888
@@ -311,7 +315,7 @@ path Drawing(path g, pen p = defaultpen, arrowbar ar = None) {
 }
 \newcommand{\listhack}{$\empty$\vspace{-2em}}
 
-%%fakesection Theorem setup by Evan Chen
+%%fakesection Theorem setup by Evan
 \usepackage{amsthm}
 \usepackage{thmtools}
 
@@ -362,12 +366,13 @@ path Drawing(path g, pen p = defaultpen, arrowbar ar = None) {
 
 \declaretheorem[style=basehead,name=Case]{case} % N
 
-%%fakesection Fancy section and chapter headings by Evan Chen
+%%fakesection Fancy section and chapter headings by Evan
 \@ifundefined{KOMAClassName}{}{
   \@ifundefined{chapter}{}{
     \addtokomafont{partprefix}{\rmfamily}
     \renewcommand*{\partformat}{\color{purple}
-      \scalebox{2.5}{\thepart}\enlargethispage{2em}}
+      \scalebox{2.5}{\thepart}% \enlargethispage{2em} % CHANGED: avoid enlarging page height to prevent bottom overflow
+    }
     \addtokomafont{chapterprefix}{\raggedleft}
     \RedeclareSectionCommand[beforeskip=0.5em]{chapter}
     \renewcommand*{\chapterformat}{\mbox{%
@@ -404,18 +409,18 @@ path Drawing(path g, pen p = defaultpen, arrowbar ar = None) {
     \setlength{\headheight}{0.75in}
     \setlength{\oddsidemargin}{0in}
     \setlength{\evensidemargin}{0in}
-    \setlength{\voffset}{-1.0in}
+    % \setlength{\voffset}{-1.0in} % CHANGED: let class handle vertical offset to avoid bottom overflow
     \setlength{\headsep}{10pt}
     \setlength{\textwidth}{6.5in}
     \setlength{\headwidth}{6.5in}
-    \setlength{\textheight}{8.75in}
+    % \setlength{\textheight}{8.75in} % CHANGED: use class default textheight to keep bottom margin safe
     \setlength{\parskip}{1ex plus 0.5ex minus 0.2ex}
     \setlength{\footskip}{0.3in}
 }
 {
     \usepackage[headsepline]{scrlayer-scrpage}
     \renewcommand{\headfont}{}
-    \addtolength{\textheight}{3.14cm}
+    % \addtolength{\textheight}{3.14cm} % CHANGED: avoid globally enlarging textheight to reduce overflow risk
     \setlength{\footskip}{0.5in}
     \setlength{\headsep}{10pt}
     \ihead{\footnotesize\textbf{\theauthor} --- \thedate}
@@ -424,3 +429,5 @@ path Drawing(path g, pen p = defaultpen, arrowbar ar = None) {
     \ohead{\footnotesize\textbf{\thetitle}}
     \cfoot{\pagemark}
 }
+
+\makeatother % CHANGED: restore catcode of @ after package definitions
