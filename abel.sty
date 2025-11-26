@@ -1,35 +1,40 @@
-% Last updated Nov 14 2025
+% Last updated Nov 24 2025
 
 \ProvidesPackage{abel}
-\makeatletter % CHANGED: enable use of internal LaTeX macros with @ in this package
+\makeatletter
 
-% Where should these settings actually be kept?
+% --------------------------------------------------------------------
+% Basic packages
+% --------------------------------------------------------------------
 \usepackage[english]{babel}
 \frenchspacing
-\usepackage{hyperref}
 
 \usepackage{amsmath}
 \usepackage{amsfonts}
 \usepackage{amssymb}
+\usepackage{mathrsfs}
+\usepackage{mathtools}
+\allowdisplaybreaks
 
 \usepackage{decimal}
 \usepackage{yhmath}
 
 \usepackage[shortlabels]{enumitem}
-\usepackage{ellipsis} % don't use ugly unicode ellipsis
+\usepackage{ellipsis} % nicer ellipsis
 
-\usepackage{mathtools}
-\allowdisplaybreaks % Prevent overflow
-
+% --------------------------------------------------------------------
 % Text styles
+% --------------------------------------------------------------------
 \newcommand{\qfootnote}[1]{\begin{flushright}\textit{#1}\end{flushright}}
 
+% --------------------------------------------------------------------
 % New math commands
+% --------------------------------------------------------------------
 \providecommand{\half}[1][1]{\frac{#1}{2}}
 \newcommand{\recip}[1]{\frac{1}{#1}}
 \newcommand{\ub}{\underbrace}
 \newcommand{\oveq}[2][=]{\overset{#2}{#1}}
-\newcommand{\amgm}[1][=]{\overset{\text{AM-GM}}{#1}} % use oveq
+\newcommand{\amgm}[1][=]{\overset{\text{AM-GM}}{#1}} % wrapper for oveq
 
 \newcommand{\qutext}[2][1em]{\hskip#1\relax\text{#2}\hskip#1\relax}
 \newcommand{\queq}[1][1em]{\qutext[#1]{$=$}}
@@ -41,9 +46,11 @@
 % Script letters
 \newcommand{\SP}{\mathcal P}
 \newcommand{\SQ}{\mathcal Q}
-\newcommand{\MS}{\mathcal S} % Already defined
+\newcommand{\MS}{\mathcal S} % already used sometimes
 
-% From Evan Chen's evan.sty
+% --------------------------------------------------------------------
+% Macros
+% --------------------------------------------------------------------
 \newcommand{\cbrt}[1]{\sqrt[3]{#1}}
 \newcommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
 \newcommand{\ceiling}[1]{\left\lceil #1 \right\rceil}
@@ -77,13 +84,13 @@
 \DeclareMathOperator{\Inn}{Inn}
 \DeclareMathOperator{\Syl}{Syl}
 \DeclareMathOperator{\Gal}{Gal}
-\DeclareMathOperator{\GL}{GL} % General linear group
-\DeclareMathOperator{\SL}{SL} % Special linear group
-\DeclareMathOperator{\Vol}{Vol} % Special linear group
+\DeclareMathOperator{\GL}{GL} % general linear group
+\DeclareMathOperator{\SL}{SL} % special linear group
+\DeclareMathOperator{\Vol}{Vol}
 
 \newcommand{\abs}[1]{\left\lvert #1 \right\rvert}
 \newcommand{\norm}[1]{\left\lVert #1 \right\rVert}
-\newcommand{\dang}{\measuredangle} %% Directed angle
+\newcommand{\dang}{\measuredangle} %% directed angle
 \newcommand{\ray}[1]{\overrightarrow{#1}}
 \newcommand{\seg}[1]{\overline{#1}}
 \DeclareMathOperator{\id}{id}
@@ -102,22 +109,22 @@
 \newcommand{\surjto}{\twoheadrightarrow}
 \newcommand{\injto}{\hookrightarrow}
 \newcommand{\On}{\mathrm{On}} % ordinals
-\DeclareMathOperator{\img}{im} % Image
-\DeclareMathOperator{\Img}{Im} % Image
-\DeclareMathOperator{\coker}{coker} % Cokernel
-\DeclareMathOperator{\Coker}{Coker} % Cokernel
-\DeclareMathOperator{\Ker}{Ker} % Kernel
+\DeclareMathOperator{\img}{im}
+\DeclareMathOperator{\Img}{Im}
+\DeclareMathOperator{\coker}{coker}
+\DeclareMathOperator{\Coker}{Coker}
+\DeclareMathOperator{\Ker}{Ker}
 \DeclareMathOperator{\rank}{rank}
-\DeclareMathOperator{\Spec}{Spec} % spectrum
-\DeclareMathOperator{\Tr}{Tr} % trace
-\DeclareMathOperator{\pr}{pr} % projection
-\DeclareMathOperator{\ext}{ext} % extension
-\DeclareMathOperator{\pred}{pred} % predecessor
-\DeclareMathOperator{\dom}{dom} % domain
-\DeclareMathOperator{\ran}{ran} % range
-\DeclareMathOperator{\Hom}{Hom} % homomorphism
-\DeclareMathOperator{\Mor}{Mor} % morphisms
-\DeclareMathOperator{\End}{End} % endomorphism
+\DeclareMathOperator{\Spec}{Spec}
+\DeclareMathOperator{\Tr}{Tr}
+\DeclareMathOperator{\pr}{pr}
+\DeclareMathOperator{\ext}{ext}
+\DeclareMathOperator{\pred}{pred}
+\DeclareMathOperator{\dom}{dom}
+\DeclareMathOperator{\ran}{ran}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\Mor}{Mor}
+\DeclareMathOperator{\End}{End}
 
 \newcommand{\kb}{\mathfrak b}
 \newcommand{\kg}{\mathfrak g}
@@ -125,10 +132,10 @@
 \newcommand{\kn}{\mathfrak n}
 \newcommand{\ku}{\mathfrak u}
 \newcommand{\kz}{\mathfrak z}
-\DeclareMathOperator{\Ext}{Ext} % Ext functor
-\DeclareMathOperator{\Tor}{Tor} % Tor functor
-\newcommand{\gl}{\opname{\mathfrak{gl}}} % frak gl group
-\def\sl{\opname{\mathfrak{sl}}} % frak sl group chktex 6
+\DeclareMathOperator{\Ext}{Ext}
+\DeclareMathOperator{\Tor}{Tor}
+\newcommand{\gl}{\opname{\mathfrak{gl}}}
+\def\sl{\opname{\mathfrak{sl}}}
 
 \newcommand{\SA}{\mathcal A}
 \newcommand{\SB}{\mathcal B}
@@ -151,74 +158,114 @@
 \newcommand{\kp}{\mathfrak p}
 \newcommand{\kq}{\mathfrak q}
 
-%% Evan's asymptote setup
+% --------------------------------------------------------------------
+% Asymptote setup (Evan)
+% --------------------------------------------------------------------
 \usepackage{asymptote}
 
 \begin{asydef}
 defaultpen(fontsize(10pt));
-size(8cm); // set a reasonable default
+size(8cm);
 usepackage("amsmath");
 usepackage("amssymb");
 settings.tex="pdflatex";
 settings.outformat="pdf";
-// Replacement for olympiad+cse5 which is not standard
 import geometry;
+
 // recalibrate fill and filldraw for conics
-void filldraw(picture pic = currentpicture, conic g, pen fillpen=defaultpen, pen drawpen=defaultpen)
-  { filldraw(pic, (path) g, fillpen, drawpen); }
+void filldraw(picture pic = currentpicture, conic g,
+              pen fillpen=defaultpen, pen drawpen=defaultpen)
+{ filldraw(pic, (path) g, fillpen, drawpen); }
+
 void fill(picture pic = currentpicture, conic g, pen p=defaultpen)
-  { filldraw(pic, (path) g, p); }
-// some geometry
+{ filldraw(pic, (path) g, p); }
+
+// geometry helpers
 pair foot(pair P, pair A, pair B) { return foot(triangle(A,B,P).VC); }
 pair centroid(pair A, pair B, pair C) { return (A+B+C)/3; }
+
 // cse5 abbreviations
 path CP(pair P, pair A) { return circle(P, abs(A-P)); }
 path CR(pair P, real r) { return circle(P, r); }
 pair IP(path p, path q) { return intersectionpoints(p,q)[0]; }
 pair OP(path p, path q) { return intersectionpoints(p,q)[1]; }
-path Line(pair A, pair B, real a=0.6, real b=a) { return (a*(A-B)+A)--(b*(B-A)+B); }
-// cse5 more useful functions
+path Line(pair A, pair B, real a=0.6, real b=a)
+{ return (a*(A-B)+A)--(b*(B-A)+B); }
+
+// cse5 drawing helpers
 picture CC() {
-  picture p=rotate(0)*currentpicture;
+  picture p = rotate(0)*currentpicture;
   currentpicture.erase();
   return p;
 }
+
 pair MP(Label s, pair A, pair B = plain.S, pen p = defaultpen) {
   Label L = s;
   L.s = "$"+s.s+"$";
   label(L, A, B, p);
   return A;
 }
+
 pair Drawing(Label s = "", pair A, pair B = plain.S, pen p = defaultpen) {
   dot(MP(s, A, B, p), p);
   return A;
 }
+
 path Drawing(path g, pen p = defaultpen, arrowbar ar = None) {
   draw(g, p, ar);
   return g;
 }
 \end{asydef}
 
-%% Evan packages
-% For colors
-\PassOptionsToPackage{usenames,svgnames,dvipsnames,table}{xcolor}
-\usepackage{xcolor} %% VIP package
+% --------------------------------------------------------------------
+% Hyperref setup
+% --------------------------------------------------------------------
+\usepackage[svgnames,dvipsnames,table]{xcolor}
+\usepackage[colorlinks=true,pdfusetitle]{hyperref}
+\hypersetup{urlcolor=RubineRed,linkcolor=RoyalBlue,citecolor=ForestGreen}
 
-% For theorem setup
+\newcommand\fake@secnum[3][]{%
+  \refstepcounter{#2}%
+  \phantomsection
+  \if\relax\detokenize{#1}\relax
+    \addcontentsline{toc}{#2}{%
+      \protect\numberline{\csname the#2\endcsname}#3}%
+  \else
+    \addcontentsline{toc}{#2}{%
+      \texorpdfstring{\protect\numberline{\csname the#2\endcsname}#3}{#1}}%
+  \fi}
+\newcommand\fake@secstar[3][]{%
+  \phantomsection
+  \if\relax\detokenize{#1}\relax
+    \addcontentsline{toc}{#2}{#3}%
+  \else
+    \addcontentsline{toc}{#2}{\texorpdfstring{#3}{#1}}%
+  \fi}
+
+\newcommand\fake@section[2][]{\fake@secnum[#1]{section}{#2}}
+\newcommand\fake@sectionstar[2][]{\fake@secstar[#1]{section}{#2}}
+\newcommand\fake@subsection[2][]{\fake@secnum[#1]{subsection}{#2}}
+\newcommand\fake@subsectionstar[2][]{\fake@secstar[#1]{subsection}{#2}}
+\newcommand\fakesection{\@ifstar\fake@sectionstar\fake@section}
+\newcommand\fakesubsection{\@ifstar\fake@subsectionstar\fake@subsection}
+
+% --------------------------------------------------------------------
+% Theorem + mdframed setup
+% --------------------------------------------------------------------
 \usepackage{amsthm}
 \usepackage{thmtools}
 
-%% mdframed setup by Evan
 \usepackage[framemethod=TikZ]{mdframed}
 \usetikzlibrary{shadows}
-% https://tex.stackexchange.com/a/292090/76888
-% https://github.com/marcodaniel/mdframed/issues/12
-\usepackage{xpatch} % N
+
+% Fix mdframed + lists interaction
+\usepackage{xpatch}
 \xpatchcmd{\endmdframed}
   {\aftergroup\endmdf@trivlist\color@endgroup}
   {\endmdf@trivlist\color@endgroup\@doendpe}
   {}{}
 
+% Blue theorem/proposition box
 \mdfdefinestyle{mdbluebox}{%
   roundcorner=10pt,
   linewidth=1pt,
@@ -236,6 +283,7 @@ path Drawing(path g, pen p = defaultpen, arrowbar ar = None) {
   postheadspace={0pt}
 ]{thmbluebox}
 
+% Red example box
 \mdfdefinestyle{mdredbox}{%
   linewidth=0.5pt,
   skipabove=12pt,
@@ -256,6 +304,7 @@ path Drawing(path g, pen p = defaultpen, arrowbar ar = None) {
   postheadspace={0pt},
 ]{thmredbox}
 
+% Green algorithm/claim sidebar
 \mdfdefinestyle{mdgreenbox}{%
   skipabove=8pt,
   skipbelow=0pt,
@@ -276,6 +325,7 @@ path Drawing(path g, pen p = defaultpen, arrowbar ar = None) {
   headpunct={ --- },
 ]{thmgreenbox}
 
+% Black remark sidebar
 \mdfdefinestyle{mdblackbox}{%
   skipabove=8pt,
   linewidth=3pt,
@@ -294,6 +344,7 @@ path Drawing(path g, pen p = defaultpen, arrowbar ar = None) {
   mdframed={style=mdblackbox}
 ]{thmblackbox}
 
+% Purple big theorem box (not used by default, but available)
 \mdfdefinestyle{mdpurplebox}{%
   roundcorner=10pt,
   linewidth=1pt,
@@ -315,17 +366,18 @@ path Drawing(path g, pen p = defaultpen, arrowbar ar = None) {
 }
 \newcommand{\listhack}{$\empty$\vspace{-2em}}
 
-%%fakesection Theorem setup by Evan
-\usepackage{amsthm}
-\usepackage{thmtools}
-
+% --------------------------------------------------------------------
+% Theorem environments
+% --------------------------------------------------------------------
 \theoremstyle{definition}
-% \ifevansecthm
+
+% Number by section
 \declaretheorem[style=thmbluebox,name=Theorem,numberwithin=section]{theorem}
 \declaretheorem[style=thmbluebox,name=Lemma,sibling=theorem]{lemma}
 \declaretheorem[style=thmbluebox,name=Proposition,sibling=theorem]{proposition}
 \declaretheorem[style=thmbluebox,name=Corollary,sibling=theorem]{corollary}
 \declaretheorem[style=thmbluebox,name=Assumption,sibling=theorem]{assume}
+
 \declaretheorem[style=thmbluebox,name=Theorem,numbered=no]{theorem*}
 \declaretheorem[style=thmbluebox,name=Lemma,numbered=no]{lemma*}
 \declaretheorem[style=thmbluebox,name=Proposition,numbered=no]{proposition*}
@@ -340,15 +392,14 @@ path Drawing(path g, pen p = defaultpen, arrowbar ar = None) {
 \declaretheorem[style=thmredbox,name=Example,sibling=theorem]{example}
 \declaretheorem[style=thmredbox,name=Example,numbered=no]{example*}
 
-% Remark-style theorems
 \declaretheorem[style=thmblackbox,name=Remark,sibling=theorem]{remark}
 \declaretheorem[style=thmblackbox,name=Remark,numbered=no]{remark*}
 
 \declaretheoremstyle[
-    headfont=\color{blue!40!black}\normalfont\bfseries,
-    spaceabove=8pt,
-    spacebelow=8pt,
-    bodyfont=\normalfont
+  headfont=\color{blue!40!black}\normalfont\bfseries,
+  spaceabove=8pt,
+  spacebelow=8pt,
+  bodyfont=\normalfont
 ]{basehead}
 
 \declaretheorem[style=basehead,name=Answer,sibling=theorem]{answer}
@@ -364,70 +415,70 @@ path Drawing(path g, pen p = defaultpen, arrowbar ar = None) {
 \declaretheorem[style=basehead,name=Problem,sibling=theorem]{problem}
 \declaretheorem[style=basehead,name=Problem,numbered=no]{problem*}
 
-\declaretheorem[style=basehead,name=Case]{case} % N
+\declaretheorem[style=basehead,name=Case]{case}
 
-%%fakesection Fancy section and chapter headings by Evan
-\@ifundefined{KOMAClassName}{}{
-  \@ifundefined{chapter}{}{
+% --------------------------------------------------------------------
+% KOMA-script section/chapter formatting (if used)
+% --------------------------------------------------------------------
+\@ifundefined{KOMAClassName}{}{%
+  \@ifundefined{chapter}{}{%
     \addtokomafont{partprefix}{\rmfamily}
     \renewcommand*{\partformat}{\color{purple}
-      \scalebox{2.5}{\thepart}% \enlargethispage{2em} % CHANGED: avoid enlarging page height to prevent bottom overflow
-    }
+      \scalebox{2.5}{\thepart}}
     \addtokomafont{chapterprefix}{\raggedleft}
     \RedeclareSectionCommand[beforeskip=0.5em]{chapter}
     \renewcommand*{\chapterformat}{\mbox{%
       \scalebox{1.5}{\chapappifchapterprefix{\nobreakspace}}%
       \scalebox{2.718}{\color{purple}\thechapter}\enskip}}
   }
-  \renewcommand*{\sectionformat}%
-    {\color{purple}\S\thesection\enskip}
-  \renewcommand*{\subsectionformat}%
-    {\color{purple}\S\thesubsection\enskip}
-  \renewcommand*{\subsubsectionformat}%
-    {\color{purple}\S\thesubsubsection\enskip}
+  \renewcommand*{\sectionformat}{\color{purple}\S\thesection\enskip}
+  \renewcommand*{\subsectionformat}{\color{purple}\S\thesubsection\enskip}
+  \renewcommand*{\subsubsectionformat}{\color{purple}\S\thesubsubsection\enskip}
   \addtokomafont{paragraph}{\color{orange!35!black}\P\ }
   \KOMAoptions{numbers=noenddot}
-  %\usetocstyle{KOMAlike}
 }
 
-%%fakesection \maketitle configuration
-\@ifundefined{KOMAClassName}%
-    {} % do nothing outside KOMA class
-    {% If KOMA exists. . .
-    \addtokomafont{subtitle}{\Large}
-    \setkomafont{author}{\Large\scshape}
-    \setkomafont{date}{\Large\normalsize}
-    }
+\RedeclareSectionCommand[tocbeforeskip=0.5em]{subsection} % Increase spacing for subsections
+
+% --------------------------------------------------------------------
+% \maketitle configuration (for KOMA)
+% --------------------------------------------------------------------
+\@ifundefined{KOMAClassName}{}{%
+  \addtokomafont{subtitle}{\Large}
+  \setkomafont{author}{\Large\scshape}
+  \setkomafont{date}{\Large\normalsize}
+}
 \providecommand{\thetitle}{\@title}
 \providecommand{\theauthor}{\@author}
 \providecommand{\thedate}{\@date}
 
-%%fakesection Page setup
-\@ifundefined{KOMAClassName}
-{
-    \usepackage{fancyhdr}
-    \setlength{\headheight}{0.75in}
-    \setlength{\oddsidemargin}{0in}
-    \setlength{\evensidemargin}{0in}
-    % \setlength{\voffset}{-1.0in} % CHANGED: let class handle vertical offset to avoid bottom overflow
-    \setlength{\headsep}{10pt}
-    \setlength{\textwidth}{6.5in}
-    \setlength{\headwidth}{6.5in}
-    % \setlength{\textheight}{8.75in} % CHANGED: use class default textheight to keep bottom margin safe
-    \setlength{\parskip}{1ex plus 0.5ex minus 0.2ex}
-    \setlength{\footskip}{0.3in}
-}
-{
-    \usepackage[headsepline]{scrlayer-scrpage}
-    \renewcommand{\headfont}{}
-    % \addtolength{\textheight}{3.14cm} % CHANGED: avoid globally enlarging textheight to reduce overflow risk
-    \setlength{\footskip}{0.5in}
-    \setlength{\headsep}{10pt}
-    \ihead{\footnotesize\textbf{\theauthor} --- \thedate}
-    \automark{section}
-    \chead{}
-    \ohead{\footnotesize\textbf{\thetitle}}
-    \cfoot{\pagemark}
+% --------------------------------------------------------------------
+% Page setup / headers
+% --------------------------------------------------------------------
+\@ifundefined{KOMAClassName}{%
+  % Standard classes
+  \usepackage{fancyhdr}
+  \setlength{\headheight}{0.75in}
+  \setlength{\oddsidemargin}{0in}
+  \setlength{\evensidemargin}{0in}
+  % let class control \voffset and \textheight
+  \setlength{\headsep}{10pt}
+  \setlength{\textwidth}{6.5in}
+  \setlength{\headwidth}{6.5in}
+  \setlength{\parskip}{1ex plus 0.5ex minus 0.2ex}
+  \setlength{\footskip}{0.3in}
+}{%
+  % KOMA-Script
+  \usepackage[headsepline]{scrlayer-scrpage}
+  \renewcommand{\headfont}{}
+  % do not enlarge textheight to avoid overflow
+  \setlength{\footskip}{0.5in}
+  \setlength{\headsep}{10pt}
+  \ihead{\footnotesize\textbf{\theauthor} --- \thedate}
+  \automark{section}
+  \chead{}
+  \ohead{\footnotesize\textbf{\thetitle}}
+  \cfoot{\pagemark}
 }
 
-\makeatother % CHANGED: restore catcode of @ after package definitions
+\makeatother

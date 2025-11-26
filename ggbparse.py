@@ -40,8 +40,19 @@ def transform(text: str) -> str:
     body = re.sub(r"linewidth\(\s*[\d.]+(?:pt)?\s*\)", "linewidth(LINE_THICKNESS)", body)
 
     # Ensure dots use dp (scales with DOT_THICKNESS)
-    body = re.sub(r"dot\(\s*([^,()]+)\s*,\s*linewidth\([^)]*\)\s*\+\s*ds\s*\)", r"dot(\1, dp)", body)
-    body = re.sub(r"dot\(\s*([^,()]+)\s*,\s*ds\s*\)", r"dot(\1, dp)", body)
+    # Use a permissive, non-greedy capture for the first argument so pairs like ((x,y),ds) work.
+    body = re.sub(
+        r"dot\(\s*(.*?)\s*,\s*linewidth\([^)]*\)\s*\+\s*ds\s*\)",
+        r"dot(\1, dp)",
+        body,
+        flags=re.DOTALL,
+    )
+    body = re.sub(
+        r"dot\(\s*(.*?)\s*,\s*ds\s*\)",
+        r"dot(\1, dp)",
+        body,
+        flags=re.DOTALL,
+    )
 
     # Tidy spacing
     body = re.sub(r"\n{3,}", "\n\n", body).strip()
