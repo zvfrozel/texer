@@ -1,11 +1,13 @@
 output/
+saved/
+
 abel.aops
 abel.asy
 abel.tex
 abel.txt
+
 input.asy
 output.asy
-tests.py
 tests.tex
 
 .DS_Store
