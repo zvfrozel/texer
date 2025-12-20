@@ -9,5 +9,6 @@ abel.txt
 input.asy
 output.asy
 tests.tex
+tests.py
 
 .DS_Store
