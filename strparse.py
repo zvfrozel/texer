@@ -33,7 +33,7 @@ def demacro(text: str) -> str:
         (r"\sign", r"\operatorname{sign}"),
         (r"\injto", r"\hookrightarrow"),
         (r"\vdotswithin=", r"\vdots"),
-    # Rest by Abel
+    # extra
         ("``", "\"")
     ]
     s = text
@@ -103,6 +103,9 @@ def toAOPS(text: str) -> str:
         r"\\item\[([^\]]*)\]", r"[*] [b]\1[/b]", text
     )  # for description items
     text = text.replace(r"\arc", r"\widehat")
+    # extra
+    text = re.sub(r"\\oveq{([^}]*)}", r"\\overset{\1}{=}", text)
+    # Note: This breaks for nested braces, can use third-party regex to fix
 
     # Join together newlines
     paragraphs = [
