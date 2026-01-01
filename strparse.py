@@ -49,6 +49,9 @@ def remove_soft_newlines(text: str) -> str:
 def toAOPS(text: str) -> str:
     DIVIDER = "\n" + r"-------------------" + "\n\n"
     text = demacro(text)
+    # Drop comments but keep \%
+    text = re.sub(r"(?m)(?<!\\)%.*$", "", text)
+    text = text.replace(r"\%", "%")
     text = text.replace(r"\qedhere", "")
     text = text.replace(r"\begin{asy}", "\n" + "[asy]" + "\n")
     text = text.replace(r"\end{asy}", "\n" + "[/asy]")
@@ -86,7 +89,6 @@ def toAOPS(text: str) -> str:
     text = text.replace(r"\bigskip", DIVIDER)
     text = text.replace(r"\medskip", DIVIDER)
     text = text.replace(r"\#", "#")
-    text = text.replace("%\n", "\n")  # strip trailing percent signs
     # Remove Asy opacities, doesn't work on AoPS
     text = re.sub(r"opacity\(0.[0-9]+\)+([^,]+), ", "invisible, ", text)
     # Replace \emph, \textit, et al
