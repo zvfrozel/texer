@@ -11,6 +11,12 @@ import sys
 import argparse
 from pathlib import Path
 
+DEFAULT_SIZE = "12cm"
+DEFAULT_FONTSIZE = 7.5
+DEFAULT_LSF = None
+DEFAULT_LINE_THICKNESS = 0.5
+DEFAULT_DOT_THICKNESS = 2.0
+
 HDR_TEMPLATE = """import graph;
 size({size});
 
@@ -91,11 +97,11 @@ def transform(
 def main() -> None:
     parser = argparse.ArgumentParser(description="Rewrite GeoGebra-exported .asy to use paramaterized thicknesses.")
     parser.add_argument("input", type=Path, help="Input .asy filename")
-    parser.add_argument("-size", "--size", type=str, default="12cm", help="Figure size (default: 12cm)")
-    parser.add_argument("-font", "--fontsize", type=float, default=7.5, help="Base fontsize (default: 7.5)")
-    parser.add_argument("-lsf", "--lsf", type=str, default=None, help="Override label scale factor")
-    parser.add_argument("-line", "--line-thickness", type=str, default="0.5", help="LINE_THICKNESS (default: 0.5)")
-    parser.add_argument("-dot", "--dot-thickness", type=str, default="0.5", help="DOT_THICKNESS (default: 0.5)")
+    parser.add_argument("-size", "--size", type=str, default=DEFAULT_SIZE, help=f"Figure size (default: {DEFAULT_SIZE})")
+    parser.add_argument("-font", "--fontsize", type=float, default=DEFAULT_FONTSIZE, help=f"Base fontsize (default: {DEFAULT_FONTSIZE})")
+    parser.add_argument("-lsf", "--lsf", type=str, default=DEFAULT_LSF, help="Override label scale factor")
+    parser.add_argument("-line", "--line-thickness", type=str, default=str(DEFAULT_LINE_THICKNESS), help=f"LINE_THICKNESS (default: {DEFAULT_LINE_THICKNESS})")
+    parser.add_argument("-dot", "--dot-thickness", type=str, default=str(DEFAULT_DOT_THICKNESS), help=f"DOT_THICKNESS (default: {DEFAULT_DOT_THICKNESS})")
 
     args = parser.parse_args()
 
